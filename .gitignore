@@ -1,0 +1,31 @@
+# Unreal Engine
+Binaries/
+Build/
+DerivedDataCache/
+Intermediate/
+Saved/
+*.sln
+*.suo
+.vs/
+*.VC.db
+*.opendb
+
+# Visual Studio
+.vs/
+*.user
+*.suo
+*.sdf
+*.opensdf
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Compiled source
+*.dll
+*.exe
+*.pdb
+
+# Keep Content and Config tracked
+!Content/
+!Config/
