@@ -1,6 +1,7 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 #include "Week3PlayerController.h"
+#include "Blueprint/UserWidget.h"
 #include "EngineUtils.h"
 #include "Week3PossessSelector.h"
 #include "Week3PlayerState.h"
@@ -16,6 +17,15 @@ void AWeek3PlayerController::BeginPlay()
 		{
 			Possess(Selector->CharacterToControl);
 			break;
+		}
+	}
+
+	if (IsLocalController() && DefaultHUDWidgetClass)
+	{
+		UUserWidget* Widget = CreateWidget<UUserWidget>(this, DefaultHUDWidgetClass);
+		if (Widget)
+		{
+			Widget->AddToViewport();
 		}
 	}
 }

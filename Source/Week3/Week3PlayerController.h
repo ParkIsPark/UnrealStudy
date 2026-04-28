@@ -14,6 +14,9 @@ class AWeek3PlayerController : public APlayerController
 public:
 	void ScheduleRespawn();
 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "UI")
+	TSubclassOf<UUserWidget> DefaultHUDWidgetClass;
+
 protected:
 	virtual void BeginPlay() override;
 	virtual void OnPossess(APawn* InPawn) override;
