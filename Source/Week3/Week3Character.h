@@ -44,8 +44,25 @@ class AWeek3Character : public ACharacter
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Input, meta = (AllowPrivateAccess = "true"))
 	UInputAction* LookAction;
 
+	/** Sprint Input Action */
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Input, meta = (AllowPrivateAccess = "true"))
+	UInputAction* SprintAction;
+
+	/** Debug Damage Input Action */
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Input, meta = (AllowPrivateAccess = "true"))
+	UInputAction* DebugDamageAction;
+
+	FTimerHandle DamageTimerHandle;
+	void OnTickDamage();
+
 public:
 	AWeek3Character();
+
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Movement)
+	float SprintSpeed = 800.f;
+
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Movement)
+	float WalkSpeed = 500.f;
 	
 
 protected:
@@ -55,7 +72,11 @@ protected:
 
 	/** Called for looking input */
 	void Look(const FInputActionValue& Value);
-			
+
+	void Sprint(const FInputActionValue& Value);
+	void StopSprint(const FInputActionValue& Value);
+	void DebugDamage(const FInputActionValue& Value);
+
 
 protected:
 	// APawn interface
