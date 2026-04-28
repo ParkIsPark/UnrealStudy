@@ -10,6 +10,10 @@
 #include "EnhancedInputComponent.h"
 #include "EnhancedInputSubsystems.h"
 #include "InputActionValue.h"
+#include "GameFramework/PlayerState.h"
+#include "Week3PlayerState.h"
+#include "Week3PlayerController.h"
+#include "TimerManager.h"
 
 DEFINE_LOG_CATEGORY(LogTemplateCharacter);
 
@@ -34,7 +38,7 @@ AWeek3Character::AWeek3Character()
 	// instead of recompiling to adjust them
 	GetCharacterMovement()->JumpZVelocity = 700.f;
 	GetCharacterMovement()->AirControl = 0.35f;
-	GetCharacterMovement()->MaxWalkSpeed = 500.f;
+	GetCharacterMovement()->MaxWalkSpeed = WalkSpeed;
 	GetCharacterMovement()->MinAnalogWalkSpeed = 20.f;
 	GetCharacterMovement()->BrakingDecelerationWalking = 2000.f;
 	GetCharacterMovement()->BrakingDecelerationFalling = 1500.0f;
@@ -56,8 +60,10 @@ AWeek3Character::AWeek3Character()
 
 void AWeek3Character::BeginPlay()
 {
-	// Call the base class  
+	// Call the base class
 	Super::BeginPlay();
+
+	GetWorldTimerManager().SetTimer(DamageTimerHandle, this, &AWeek3Character::OnTickDamage, 1.0f, true);
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -86,6 +92,19 @@ void AWeek3Character::SetupPlayerInputComponent(UInputComponent* PlayerInputComp
 
 		// Looking
 		EnhancedInputComponent->BindAction(LookAction, ETriggerEvent::Triggered, this, &AWeek3Character::Look);
+
+		// Sprinting
+		if (SprintAction)
+		{
+			EnhancedInputComponent->BindAction(SprintAction, ETriggerEvent::Started,   this, &AWeek3Character::Sprint);
+			EnhancedInputComponent->BindAction(SprintAction, ETriggerEvent::Completed, this, &AWeek3Character::StopSprint);
+		}
+
+		// Debug damage
+		if (DebugDamageAction)
+		{
+			EnhancedInputComponent->BindAction(DebugDamageAction, ETriggerEvent::Started, this, &AWeek3Character::DebugDamage);
+		}
 	}
 	else
 	{
@@ -126,5 +145,43 @@ void AWeek3Character::Look(const FInputActionValue& Value)
 		// add yaw and pitch input to controller
 		AddControllerYawInput(LookAxisVector.X);
 		AddControllerPitchInput(LookAxisVector.Y);
+	}
+}
+
+void AWeek3Character::Sprint(const FInputActionValue&)
+{
+	GetCharacterMovement()->MaxWalkSpeed = SprintSpeed;
+}
+
+void AWeek3Character::StopSprint(const FInputActionValue&)
+{
+	GetCharacterMovement()->MaxWalkSpeed = WalkSpeed;
+}
+
+void AWeek3Character::DebugDamage(const FInputActionValue&)
+{
+	if (AWeek3PlayerState* PS = GetPlayerState<AWeek3PlayerState>())
+	{
+		PS->ApplyDamage(10.f);
+	}
+}
+
+void AWeek3Character::OnTickDamage()
+{
+	AWeek3PlayerState* PS = GetPlayerState<AWeek3PlayerState>();
+	if (!PS) return;
+
+	PS->ApplyDamage(1.f);
+
+	if (!PS->IsAlive())
+	{
+		GetWorldTimerManager().ClearTimer(DamageTimerHandle);
+
+		if (AWeek3PlayerController* PC = Cast<AWeek3PlayerController>(GetController()))
+		{
+			PC->ScheduleRespawn();
+		}
+
+		Destroy();
 	}
 }
