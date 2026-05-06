@@ -96,15 +96,11 @@ void AWeek3Character::SetupPlayerInputComponent(UInputComponent* PlayerInputComp
 		// Sprinting
 		if (SprintAction)
 		{
-			EnhancedInputComponent->BindAction(SprintAction, ETriggerEvent::Started,   this, &AWeek3Character::Sprint);
+			EnhancedInputComponent->BindAction(SprintAction, ETriggerEvent::Started, this, &AWeek3Character::Sprint);
 			EnhancedInputComponent->BindAction(SprintAction, ETriggerEvent::Completed, this, &AWeek3Character::StopSprint);
 		}
 
-		// Debug damage
-		if (DebugDamageAction)
-		{
-			EnhancedInputComponent->BindAction(DebugDamageAction, ETriggerEvent::Started, this, &AWeek3Character::DebugDamage);
-		}
+	
 	}
 	else
 	{
@@ -151,6 +147,7 @@ void AWeek3Character::Look(const FInputActionValue& Value)
 void AWeek3Character::Sprint(const FInputActionValue&)
 {
 	GetCharacterMovement()->MaxWalkSpeed = SprintSpeed;
+
 }
 
 void AWeek3Character::StopSprint(const FInputActionValue&)
@@ -158,20 +155,13 @@ void AWeek3Character::StopSprint(const FInputActionValue&)
 	GetCharacterMovement()->MaxWalkSpeed = WalkSpeed;
 }
 
-void AWeek3Character::DebugDamage(const FInputActionValue&)
-{
-	if (AWeek3PlayerState* PS = GetPlayerState<AWeek3PlayerState>())
-	{
-		PS->ApplyDamage(10.f);
-	}
-}
 
 void AWeek3Character::OnTickDamage()
 {
 	AWeek3PlayerState* PS = GetPlayerState<AWeek3PlayerState>();
 	if (!PS) return;
 
-	PS->ApplyDamage(1.f);
+	PS->ApplyDamage(10);
 
 	if (!PS->IsAlive())
 	{

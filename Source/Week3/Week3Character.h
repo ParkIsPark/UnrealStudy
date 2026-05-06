@@ -48,10 +48,6 @@ class AWeek3Character : public ACharacter
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Input, meta = (AllowPrivateAccess = "true"))
 	UInputAction* SprintAction;
 
-	/** Debug Damage Input Action */
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Input, meta = (AllowPrivateAccess = "true"))
-	UInputAction* DebugDamageAction;
-
 	FTimerHandle DamageTimerHandle;
 	void OnTickDamage();
 
@@ -75,7 +71,6 @@ protected:
 
 	void Sprint(const FInputActionValue& Value);
 	void StopSprint(const FInputActionValue& Value);
-	void DebugDamage(const FInputActionValue& Value);
 
 
 protected:
