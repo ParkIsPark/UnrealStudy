@@ -28,7 +28,14 @@
       "PowerShell(python --version; python -c \"import pptx; print\\('python-pptx', pptx.__version__\\)\")",
       "PowerShell(pip install *)",
       "PowerShell(python -c \"import pptx; print\\('pptx version:', pptx.__version__\\); print\\('python:', __import__\\('sys'\\).version\\)\")",
-      "PowerShell(py *)"
+      "PowerShell(py *)",
+      "Bash(xargs grep -l \"OnComponentBeginOverlap\\\\|OnHealthChanged\\\\|DECLARE_DYNAMIC_MULTICAST_DELEGATE\")",
+      "Bash(python -c \"import pptx; print\\('python-pptx', pptx.__version__\\)\")",
+      "Bash(python -m pip install python-pptx)",
+      "Bash(where python *)",
+      "Bash(py -3 --version)",
+      "Bash(py -3 -m pip --version)",
+      "Bash(py *)"
     ]
   }
 }
