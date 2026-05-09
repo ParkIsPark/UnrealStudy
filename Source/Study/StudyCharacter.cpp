@@ -1,6 +1,6 @@
 // Copyright Epic Games, Inc. All Rights Reserved.
 
-#include "Week3Character.h"
+#include "StudyCharacter.h"
 #include "Engine/LocalPlayer.h"
 #include "Camera/CameraComponent.h"
 #include "Components/CapsuleComponent.h"
@@ -11,16 +11,16 @@
 #include "EnhancedInputSubsystems.h"
 #include "InputActionValue.h"
 #include "GameFramework/PlayerState.h"
-#include "Week3PlayerState.h"
-#include "Week3PlayerController.h"
+#include "StudyPlayerState.h"
+#include "StudyPlayerController.h"
 #include "TimerManager.h"
 
 DEFINE_LOG_CATEGORY(LogTemplateCharacter);
 
 //////////////////////////////////////////////////////////////////////////
-// AWeek3Character
+// AStudyCharacter
 
-AWeek3Character::AWeek3Character()
+AStudyCharacter::AStudyCharacter()
 {
 	// Set size for collision capsule
 	GetCapsuleComponent()->InitCapsuleSize(42.f, 96.0f);
@@ -58,18 +58,18 @@ AWeek3Character::AWeek3Character()
 	// are set in the derived blueprint asset named ThirdPersonCharacter (to avoid direct content references in C++)
 }
 
-void AWeek3Character::BeginPlay()
+void AStudyCharacter::BeginPlay()
 {
 	// Call the base class
 	Super::BeginPlay();
 
-	GetWorldTimerManager().SetTimer(DamageTimerHandle, this, &AWeek3Character::OnTickDamage, 1.0f, true);
+	GetWorldTimerManager().SetTimer(DamageTimerHandle, this, &AStudyCharacter::OnTickDamage, 1.0f, true);
 }
 
 //////////////////////////////////////////////////////////////////////////
 // Input
 
-void AWeek3Character::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
+void AStudyCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 {
 	// Add Input Mapping Context
 	if (APlayerController* PlayerController = Cast<APlayerController>(GetController()))
@@ -88,16 +88,16 @@ void AWeek3Character::SetupPlayerInputComponent(UInputComponent* PlayerInputComp
 		EnhancedInputComponent->BindAction(JumpAction, ETriggerEvent::Completed, this, &ACharacter::StopJumping);
 
 		// Moving
-		EnhancedInputComponent->BindAction(MoveAction, ETriggerEvent::Triggered, this, &AWeek3Character::Move);
+		EnhancedInputComponent->BindAction(MoveAction, ETriggerEvent::Triggered, this, &AStudyCharacter::Move);
 
 		// Looking
-		EnhancedInputComponent->BindAction(LookAction, ETriggerEvent::Triggered, this, &AWeek3Character::Look);
+		EnhancedInputComponent->BindAction(LookAction, ETriggerEvent::Triggered, this, &AStudyCharacter::Look);
 
 		// Sprinting
 		if (SprintAction)
 		{
-			EnhancedInputComponent->BindAction(SprintAction, ETriggerEvent::Started, this, &AWeek3Character::Sprint);
-			EnhancedInputComponent->BindAction(SprintAction, ETriggerEvent::Completed, this, &AWeek3Character::StopSprint);
+			EnhancedInputComponent->BindAction(SprintAction, ETriggerEvent::Started, this, &AStudyCharacter::Sprint);
+			EnhancedInputComponent->BindAction(SprintAction, ETriggerEvent::Completed, this, &AStudyCharacter::StopSprint);
 		}
 
 	
@@ -108,7 +108,7 @@ void AWeek3Character::SetupPlayerInputComponent(UInputComponent* PlayerInputComp
 	}
 }
 
-void AWeek3Character::Move(const FInputActionValue& Value)
+void AStudyCharacter::Move(const FInputActionValue& Value)
 {
 	// input is a Vector2D
 	FVector2D MovementVector = Value.Get<FVector2D>();
@@ -131,7 +131,7 @@ void AWeek3Character::Move(const FInputActionValue& Value)
 	}
 }
 
-void AWeek3Character::Look(const FInputActionValue& Value)
+void AStudyCharacter::Look(const FInputActionValue& Value)
 {
 	// input is a Vector2D
 	FVector2D LookAxisVector = Value.Get<FVector2D>();
@@ -144,21 +144,21 @@ void AWeek3Character::Look(const FInputActionValue& Value)
 	}
 }
 
-void AWeek3Character::Sprint(const FInputActionValue&)
+void AStudyCharacter::Sprint(const FInputActionValue&)
 {
 	GetCharacterMovement()->MaxWalkSpeed = SprintSpeed;
 
 }
 
-void AWeek3Character::StopSprint(const FInputActionValue&)
+void AStudyCharacter::StopSprint(const FInputActionValue&)
 {
 	GetCharacterMovement()->MaxWalkSpeed = WalkSpeed;
 }
 
 
-void AWeek3Character::OnTickDamage()
+void AStudyCharacter::OnTickDamage()
 {
-	AWeek3PlayerState* PS = GetPlayerState<AWeek3PlayerState>();
+	AStudyPlayerState* PS = GetPlayerState<AStudyPlayerState>();
 	if (!PS) return;
 
 	PS->ApplyDamage(10);
@@ -167,11 +167,10 @@ void AWeek3Character::OnTickDamage()
 	{
 		GetWorldTimerManager().ClearTimer(DamageTimerHandle);
 
-		if (AWeek3PlayerController* PC = Cast<AWeek3PlayerController>(GetController()))
+		// 죽음 결정과 Pawn 파괴 책임은 PC가 갖는다 — Character는 알리기만 한다.
+		if (AStudyPlayerController* PC = Cast<AStudyPlayerController>(GetController()))
 		{
-			PC->ScheduleRespawn();
+			PC->HandlePlayerDeath();
 		}
-
-		Destroy();
 	}
 }

@@ -4,19 +4,19 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Pawn.h"
-#include "Week3JustPawn.generated.h"
+#include "StudyJustPawn.generated.h"
 
 class UInputMappingContext;
 class UInputAction;
 struct FInputActionValue;
 
 UCLASS()
-class WEEK3_API AWeek3JustPawn : public APawn
+class STUDY_API AStudyJustPawn : public APawn
 {
 	GENERATED_BODY()
 
 public:
-	AWeek3JustPawn();
+	AStudyJustPawn();
 
 protected:
 	virtual void BeginPlay() override;
