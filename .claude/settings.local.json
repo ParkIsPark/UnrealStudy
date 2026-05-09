@@ -6,7 +6,29 @@
       "Bash(git add:*)",
       "Bash(git commit:*)",
       "Bash(git remote:*)",
-      "Bash(git push:*)"
+      "Bash(git push:*)",
+      "mcp__claude_ai_Notion__notion-fetch",
+      "Bash(git branch *)",
+      "Bash(findstr snapshot *)",
+      "Bash(git fetch *)",
+      "mcp__claude_ai_Notion__notion-update-page",
+      "Bash(python -c \"import pptx; print\\('python-pptx version:', pptx.__version__\\)\")",
+      "Bash(pip install *)",
+      "Bash(python analyze_pptx.py)",
+      "Bash(python -c \"import sys; print\\(sys.executable\\)\")",
+      "Bash($PY *)",
+      "Bash(/c/Users/kk409/AppData/Local/Programs/Python/Python313/python.exe C:/Users/kk409/AppData/Local/Temp/analyze_pptx.py)",
+      "Bash(PYTHONIOENCODING=utf-8 /c/Users/kk409/AppData/Local/Programs/Python/Python313/python.exe C:/Users/kk409/AppData/Local/Temp/analyze_pptx.py)",
+      "Bash(PYTHONIOENCODING=utf-8 $PY *)",
+      "Bash(git *)",
+      "Bash(PYTHONIOENCODING=utf-8 /c/Users/kk409/AppData/Local/Programs/Python/Python313/python.exe C:/Users/kk409/AppData/Local/Temp/analyze_targets.py)",
+      "Bash(PYTHONIOENCODING=utf-8 /c/Users/kk409/AppData/Local/Programs/Python/Python313/python.exe C:/Users/kk409/AppData/Local/Temp/extract_text.py)",
+      "Bash(awk '/^=== SLIDE \\(4|13|15|39|40|42|44|45|46|47|50|51|52\\) ===/,/^=== SLIDE/' \"C:/Users/kk409/AppData/Local/Temp/week5_slides_text_python.md\")",
+      "Bash(tasklist)",
+      "PowerShell(python --version; python -c \"import pptx; print\\('python-pptx', pptx.__version__\\)\")",
+      "PowerShell(pip install *)",
+      "PowerShell(python -c \"import pptx; print\\('pptx version:', pptx.__version__\\); print\\('python:', __import__\\('sys'\\).version\\)\")",
+      "PowerShell(py *)"
     ]
   }
 }

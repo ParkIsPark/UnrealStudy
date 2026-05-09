@@ -24,8 +24,15 @@ public:
 	UPROPERTY(BlueprintReadOnly, Category = "Stats")
 	int32 RemainingRespawns = 0;
 
+	/** 데미지 배율 — 6주차 BP_DamageBoost가 set, 7주차 이후 공격 시스템이 read 예정. */
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Stats")
+	float DamageMultiplier = 1.f;
+
 	UFUNCTION(BlueprintCallable, Category = "Stats")
 	void ApplyDamage(float DamageAmount);
+
+	UFUNCTION(BlueprintCallable, Category = "Stats")
+	void Heal(float HealAmount);
 
 	UFUNCTION(BlueprintCallable, BlueprintPure, Category = "Stats")
 	bool IsAlive() const;
