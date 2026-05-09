@@ -31,6 +31,11 @@ void AStudyPlayerState::ApplyDamage(float DamageAmount)
 	CurrentHP = FMath::Clamp(CurrentHP - DamageAmount, 0.f, MaxHP);
 }
 
+void AStudyPlayerState::Heal(float HealAmount)
+{
+	CurrentHP = FMath::Clamp(CurrentHP + HealAmount, 0.f, MaxHP);
+}
+
 bool AStudyPlayerState::IsAlive() const
 {
 	return CurrentHP > 0.f;
