@@ -4,15 +4,15 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
-#include "Week3PossessSelector.generated.h"
+#include "StudyPossessSelector.generated.h"
 
 UCLASS()
-class AWeek3PossessSelector : public AActor
+class AStudyPossessSelector : public AActor
 {
 	GENERATED_BODY()
 
 public:
-	AWeek3PossessSelector();
+	AStudyPossessSelector();
 
 	/** PlayerController가 BeginPlay에서 이 폰을 Possess 대상으로 사용한다 */
 	UPROPERTY(EditAnywhere, Category = "Possess")

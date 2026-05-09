@@ -1,17 +1,17 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
-#include "Week3JustPawn.h"
+#include "StudyJustPawn.h"
 #include "Engine/LocalPlayer.h"
 #include "EnhancedInputComponent.h"
 #include "EnhancedInputSubsystems.h"
 #include "InputActionValue.h"
 
-AWeek3JustPawn::AWeek3JustPawn()
+AStudyJustPawn::AStudyJustPawn()
 {
 	PrimaryActorTick.bCanEverTick = true;
 }
 
-void AWeek3JustPawn::BeginPlay()
+void AStudyJustPawn::BeginPlay()
 {
 	Super::BeginPlay();
 
@@ -25,22 +25,22 @@ void AWeek3JustPawn::BeginPlay()
 	}
 }
 
-void AWeek3JustPawn::Tick(float DeltaTime)
+void AStudyJustPawn::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 }
 
-void AWeek3JustPawn::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
+void AStudyJustPawn::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 {
 	Super::SetupPlayerInputComponent(PlayerInputComponent);
 
 	if (UEnhancedInputComponent* EIC = Cast<UEnhancedInputComponent>(PlayerInputComponent))
 	{
-		EIC->BindAction(MoveAction, ETriggerEvent::Triggered, this, &AWeek3JustPawn::Move);
+		EIC->BindAction(MoveAction, ETriggerEvent::Triggered, this, &AStudyJustPawn::Move);
 	}
 }
 
-void AWeek3JustPawn::Move(const FInputActionValue& Value)
+void AStudyJustPawn::Move(const FInputActionValue& Value)
 {
 	FVector2D Input = Value.Get<FVector2D>();
 	AddActorWorldOffset(FVector(Input.Y, Input.X, 0.f) * MoveSpeed * GetWorld()->GetDeltaSeconds());

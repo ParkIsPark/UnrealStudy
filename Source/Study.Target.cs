@@ -3,13 +3,13 @@
 using UnrealBuildTool;
 using System.Collections.Generic;
 
-public class Week3EditorTarget : TargetRules
+public class StudyTarget : TargetRules
 {
-	public Week3EditorTarget(TargetInfo Target) : base(Target)
+	public StudyTarget(TargetInfo Target) : base(Target)
 	{
-		Type = TargetType.Editor;
+		Type = TargetType.Game;
 		DefaultBuildSettings = BuildSettingsVersion.V5;
 		IncludeOrderVersion = EngineIncludeOrderVersion.Unreal5_4;
-		ExtraModuleNames.Add("Week3");
+		ExtraModuleNames.Add("Study");
 	}
 }
